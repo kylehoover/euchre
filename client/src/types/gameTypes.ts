@@ -24,3 +24,33 @@ export interface Card {
   suit: CardSuit;
   value: CardValue;
 }
+
+export interface CardPlayed extends Card {
+  playerId: string;
+}
+
+export interface Trick {
+  cards: CardPlayed[];
+}
+
+export interface Round {
+  callerId: string;
+  dealerId: string;
+  dealerPassed: boolean;
+  isMisdeal: boolean;
+  tricks: Trick[];
+  trump: CardSuit;
+  trumpCardFromDeck: Card;
+}
+
+export interface Player {
+  id: string;
+  hand: Card[];
+  isBot: boolean;
+  teamId: string;
+}
+
+export interface Team {
+  id: string;
+  playerIds: string[];
+}

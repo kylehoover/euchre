@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GameState } from "./types";
-import { createDeck } from "../../gameHelpers";
+import { GameState, Step } from "./types";
 import { startGame } from "./reducers";
+import { randomInt } from "../../helpers";
 
 const initialState: GameState = {
-  deck: createDeck(),
+  activePlayerIndex: randomInt(1, 4),
+  players: {},
+  rounds: [],
+  step: Step.WaitingForPlayers,
+  teams: {},
 };
 
 const gameSlice = createSlice({
