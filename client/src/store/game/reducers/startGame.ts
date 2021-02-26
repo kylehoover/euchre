@@ -1,12 +1,15 @@
-import { CaseReducer } from "@reduxjs/toolkit";
+import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
 import { GameState } from "../types";
-import { Player } from "../../../types";
+import { Player, Team } from "../../../types";
+import { randomInt } from "../../../helpers";
 import { startRound } from "./startRound";
+import { deal } from "../../../gameHelpers";
+import { nextIndex } from "../helpers";
 
 function createPlayer(
   id: string,
   teamId: string,
-  isBot: boolean = true
+  isBot: boolean = false
 ): Player {
   return {
     id,
@@ -16,19 +19,33 @@ function createPlayer(
   };
 }
 
-// TODO: payload takes an array of players, if there are less than 4 then bots are added
-export const startGame: CaseReducer<GameState> = (state) => {
-  state.players = {
-    "1": createPlayer("1", "1", false),
-    "2": createPlayer("2", "1", true),
-    "3": createPlayer("3", "2", true),
-    "4": createPlayer("4", "2", true),
-  };
+export const startGame: CaseReducer<GameState, PayloadAction<Team[]>> = (
+  state,
+  action
+) => {
+  let botIdNum = 1;
 
-  state.teams = {
-    "1": { id: "1", playerIds: ["1", "2"] },
-    "2": { id: "2", playerIds: ["3", "4"] },
-  };
+  action.payload.forEach((team) => {
+    state.teams[team.id] = team;
+
+    team.playerIds.forEach((id) => {
+      state.players[id] = createPlayer(id, team.id);
+    });
+
+    const numBots = 2 - team.playerIds.length;
+
+    for (let i = 0; i < numBots; i++) {
+      const botId = `bot-${botIdNum++}`;
+      state.teams[team.id].playerIds.push(botId);
+      state.players[botId] = createPlayer(botId, team.id, true);
+    }
+  });
+
+  state.teams.one;
+
+  const dealerIndex = randomInt(1, 4);
+  state.activePlayerIndex = nextIndex(dealerIndex);
+  state.dealerIndex = dealerIndex;
 
   startRound(state);
 };

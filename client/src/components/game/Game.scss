@@ -1,0 +1,19 @@
+.Game {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .top {
+    border-bottom: 2px solid black;
+    height: 5rem;
+  }
+
+  .middle {
+    flex: 1;
+  }
+
+  .bottom {
+    border-top: 2px solid black;
+    height: 15rem;
+  }
+}

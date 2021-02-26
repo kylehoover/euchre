@@ -7,6 +7,8 @@ export enum Step {
 
 export interface GameState {
   activePlayerIndex: number;
+  dealerIndex: number;
+  playerOrder: string[];
   players: {
     [id: string]: Player;
   };

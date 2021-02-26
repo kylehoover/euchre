@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GameState, Step } from "./types";
 import { startGame } from "./reducers";
-import { randomInt } from "../../helpers";
 
 const initialState: GameState = {
-  activePlayerIndex: randomInt(1, 4),
+  activePlayerIndex: 0,
+  dealerIndex: 0,
+  playerOrder: [],
   players: {},
   rounds: [],
   step: Step.WaitingForPlayers,
