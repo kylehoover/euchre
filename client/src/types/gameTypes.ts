@@ -39,7 +39,7 @@ export interface Round {
   dealerPassed: boolean;
   isMisdeal: boolean;
   tricks: Trick[];
-  trump: CardSuit;
+  trump?: CardSuit;
   trumpCardFromDeck: Card;
 }
 
@@ -47,10 +47,10 @@ export interface Player {
   id: string;
   hand: Card[];
   isBot: boolean;
-  teamId: string;
+  isCurrentUser: boolean;
+  teamIndex: number;
 }
 
 export interface Team {
-  id: string;
   playerIds: string[];
 }

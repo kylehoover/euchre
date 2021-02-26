@@ -7,6 +7,7 @@ export enum Step {
 
 export interface GameState {
   activePlayerIndex: number;
+  currentUserIndex: number;
   dealerIndex: number;
   playerOrder: string[];
   players: {
@@ -14,7 +15,5 @@ export interface GameState {
   };
   rounds: Round[];
   step: Step;
-  teams: {
-    [id: string]: Team;
-  };
+  teams: [Team, Team];
 }

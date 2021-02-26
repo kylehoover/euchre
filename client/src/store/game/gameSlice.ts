@@ -1,21 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GameState, Step } from "./types";
-import { startGame } from "./reducers";
+import { addPlayer, startGame } from "./reducers";
 
 const initialState: GameState = {
   activePlayerIndex: 0,
+  currentUserIndex: 0,
   dealerIndex: 0,
   playerOrder: [],
   players: {},
   rounds: [],
   step: Step.WaitingForPlayers,
-  teams: {},
+  teams: [{ playerIds: [] }, { playerIds: [] }],
 };
 
 const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
+    addPlayer,
     startGame,
   },
 });

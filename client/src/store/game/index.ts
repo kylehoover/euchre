@@ -1,1 +1,1 @@
-export * from "./gameSlice";
+export { gameActions, gameReducer } from "./gameSlice";
