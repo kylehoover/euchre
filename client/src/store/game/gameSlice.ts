@@ -4,6 +4,7 @@ import { addPlayer, startGame } from "./reducers";
 
 const initialState: GameState = {
   activePlayerIndex: 0,
+  currentUserId: "",
   currentUserIndex: 0,
   dealerIndex: 0,
   playerOrder: [],

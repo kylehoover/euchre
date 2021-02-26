@@ -15,4 +15,8 @@ export const addPlayer: CaseReducer<GameState, PayloadAction<Payload>> = (
   const { isCurrentUser, playerId, teamIndex } = action.payload;
   state.players[playerId] = createPlayer(playerId, teamIndex, isCurrentUser);
   state.teams[teamIndex].playerIds.push(playerId);
+
+  if (isCurrentUser) {
+    state.currentUserId = playerId;
+  }
 };

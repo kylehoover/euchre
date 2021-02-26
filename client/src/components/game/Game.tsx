@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Hand } from "./Hand";
 import { gameActions, useAppDispatch } from "../../store";
 import "./Game.scss";
 
@@ -20,7 +21,9 @@ export function Game() {
     <div className="Game">
       <div className="top"></div>
       <div className="middle"></div>
-      <div className="bottom"></div>
+      <div className="bottom">
+        <Hand />
+      </div>
     </div>
   );
 }
