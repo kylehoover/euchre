@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { Card, CardSuit } from "../../types";
-import { ReactComponent as Diamond } from "../../assets/diamond.svg";
-import { ReactComponent as Heart } from "../../assets/heart.svg";
+import { ClubIcon, DiamondIcon, HeartIcon, SpadeIcon } from "../../assets";
 import "./PlayingCard.scss";
 
 interface Props {
@@ -10,10 +9,14 @@ interface Props {
 
 function getIcon(suit: CardSuit) {
   switch (suit) {
+    case CardSuit.Clubs:
+      return <ClubIcon />;
     case CardSuit.Diamonds:
-      return <Diamond />;
+      return <DiamondIcon />;
     case CardSuit.Hearts:
-      return <Heart />;
+      return <HeartIcon />;
+    case CardSuit.Spades:
+      return <SpadeIcon />;
   }
 }
 
@@ -22,6 +25,11 @@ export function PlayingCard(props: Props) {
 
   return (
     <div className={classNames("Card", suit)}>
+      <div className="signature">
+        <div>{value}</div>
+        {getIcon(suit)}
+      </div>
+      <div className="pips"></div>
       <div className="signature">
         <div>{value}</div>
         {getIcon(suit)}

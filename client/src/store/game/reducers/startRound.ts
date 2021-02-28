@@ -1,4 +1,4 @@
-import { GameState } from "../types";
+import { GameState, Step } from "../types";
 import { createDeck, deal } from "../../../gameHelpers";
 import { shuffle } from "../../../helpers";
 import { nextIndex } from "../helpers";
@@ -22,4 +22,6 @@ export function startRound(state: GameState): void {
     tricks: [],
     trumpCardFromDeck: remaining[0],
   });
+
+  state.step = Step.CallingTrump;
 }
