@@ -1,4 +1,4 @@
-import { animated, useSpring, useTrail } from "react-spring";
+import { animated, useTrail } from "react-spring";
 import { PlayingCard } from "./PlayingCard";
 import { Card } from "../../types";
 import { sortCards } from "../../gameHelpers";
@@ -16,11 +16,6 @@ export function Hand() {
 
   const sortedHand = sortCards(hand);
 
-  const animatedProps = useSpring({
-    transform: "translateY(0)",
-    from: { transform: "translateY(15rem)" },
-  });
-
   const trail = useTrail(sortedHand.length, {
     transform: "translateY(0)",
     from: { transform: "translateY(16rem)" },
@@ -37,11 +32,6 @@ export function Hand() {
           </animated.div>
         );
       })}
-      {/* {sortedHand.map((card) => (
-        <animated.div style={animatedProps}>
-          <PlayingCard card={card} key={getKey(card)} />
-        </animated.div>
-      ))} */}
     </div>
   );
 }

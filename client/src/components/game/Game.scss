@@ -14,17 +14,20 @@
     flex: 1;
 
     .center {
+      align-items: center;
+      display: flex;
       flex: 1;
+      justify-content: center;
     }
 
     .left {
-      border-right: 1px solid black;
-      width: 10rem;
+      // border-right: 1px solid black;
+      // width: 10rem;
     }
 
     .right {
-      border-left: 1px solid black;
-      width: 10rem;
+      // border-left: 1px solid black;
+      // width: 10rem;
     }
   }
 

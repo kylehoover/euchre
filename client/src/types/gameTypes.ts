@@ -54,3 +54,9 @@ export interface Player {
 export interface Team {
   playerIds: string[];
 }
+
+export enum GameStep {
+  WaitingForPlayers = "WaitingForPlayers",
+  StartingRound = "StartingRound",
+  CallingTrump = "CallingTrump",
+}

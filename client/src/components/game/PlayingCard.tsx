@@ -4,7 +4,7 @@ import { ClubIcon, DiamondIcon, HeartIcon, SpadeIcon } from "../../assets";
 import "./PlayingCard.scss";
 
 interface Props {
-  card: Card;
+  card?: Card;
 }
 
 function getIcon(suit: CardSuit) {
@@ -21,19 +21,28 @@ function getIcon(suit: CardSuit) {
 }
 
 export function PlayingCard(props: Props) {
-  const { suit, value } = props.card;
+  const { card } = props;
+  const classes = classNames("Card", {
+    [card?.suit ?? ""]: card?.suit !== undefined,
+  });
 
   return (
-    <div className={classNames("Card", suit)}>
-      <div className="signature">
-        <div>{value}</div>
-        {getIcon(suit)}
-      </div>
-      <div className="pips"></div>
-      <div className="signature">
-        <div>{value}</div>
-        {getIcon(suit)}
-      </div>
+    <div className={classes}>
+      {card && (
+        <>
+          <div className="signature">
+            <div>{card.value}</div>
+            {getIcon(card.suit)}
+          </div>
+          <div className="pips"></div>
+          <div className="signature">
+            <div>{card.value}</div>
+            {getIcon(card.suit)}
+          </div>
+        </>
+      )}
+
+      {!card && <div className="back" />}
     </div>
   );
 }

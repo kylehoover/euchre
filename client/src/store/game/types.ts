@@ -1,9 +1,4 @@
-import { Player, Round, Team } from "../../types";
-
-export enum Step {
-  WaitingForPlayers = "WaitingForPlayers",
-  CallingTrump = "CallingTrump",
-}
+import { GameStep, Player, Round, Team } from "../../types";
 
 export interface GameState {
   activePlayerIndex: number;
@@ -15,6 +10,6 @@ export interface GameState {
     [id: string]: Player;
   };
   rounds: Round[];
-  step: Step;
+  step: GameStep;
   teams: [Team, Team];
 }
