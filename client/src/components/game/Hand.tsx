@@ -21,6 +21,10 @@ export function Hand() {
     from: { transform: "translateY(16rem)" },
   });
 
+  // if (hand.length === 0) {
+  //   return null;
+  // }
+
   return (
     <div className="Hand">
       {trail.map((props, index) => {

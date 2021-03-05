@@ -1,0 +1,7 @@
+1. start game
+2. start round
+    - [A] round banner slides down
+    - [A] cards are dealt to each player
+3. deal cards
+    - [A] trump card from deck flips up
+4. call trump

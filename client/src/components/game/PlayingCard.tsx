@@ -2,9 +2,11 @@ import classNames from "classnames";
 import { Card, CardSuit } from "../../types";
 import { ClubIcon, DiamondIcon, HeartIcon, SpadeIcon } from "../../assets";
 import "./PlayingCard.scss";
+import { Paper } from "@material-ui/core";
 
 interface Props {
   card?: Card;
+  style?: React.CSSProperties;
 }
 
 function getIcon(suit: CardSuit) {
@@ -21,13 +23,14 @@ function getIcon(suit: CardSuit) {
 }
 
 export function PlayingCard(props: Props) {
-  const { card } = props;
-  const classes = classNames("Card", {
+  const { card, style } = props;
+  const classes = classNames("PlayingCard", {
     [card?.suit ?? ""]: card?.suit !== undefined,
+    flipped: card === undefined,
   });
 
   return (
-    <div className={classes}>
+    <Paper className={classes} elevation={1} style={style}>
       {card && (
         <>
           <div className="signature">
@@ -43,6 +46,6 @@ export function PlayingCard(props: Props) {
       )}
 
       {!card && <div className="back" />}
-    </div>
+    </Paper>
   );
 }

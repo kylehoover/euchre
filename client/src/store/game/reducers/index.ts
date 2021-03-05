@@ -1,3 +1,3 @@
 export { addPlayer } from "./addPlayer";
-export { dealHands } from "./dealHands";
+export { dealCards } from "./dealCards";
 export { startGame } from "./startGame";

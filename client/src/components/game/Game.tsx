@@ -5,6 +5,8 @@ import { GameStep } from "../../types";
 import { StartRoundDisplay } from "./StartRoundDisplay";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import "./Game.scss";
+import { PlayerContainer } from "./PlayerContainer";
+import { TrumpPicker } from "./TrumpPicker";
 
 export function Game() {
   const dispatch = useAppDispatch();
@@ -17,18 +19,25 @@ export function Game() {
   useEffect(() => {
     dispatch(
       gameActions.addPlayer({
+        name: "You",
         playerId: "1",
         teamIndex: 0,
         isCurrentUser: true,
       }),
     );
+    // dispatch(gameActions.startGame());
+    // dispatch(gameActions.dealCards());
   }, [dispatch]);
 
   return (
     <div className="Game">
-      <div className="top"></div>
+      <div className="top">
+        <PlayerContainer index={2} />
+      </div>
       <div className="middle">
-        <div className="left"></div>
+        <div className="left">
+          <PlayerContainer index={1} />
+        </div>
         <div className="center">
           {step === GameStep.WaitingForPlayers && (
             <Button
@@ -41,10 +50,15 @@ export function Game() {
           )}
 
           {step === GameStep.StartingRound && <StartRoundDisplay />}
+
+          {step === GameStep.CallingTrump && <TrumpPicker />}
         </div>
-        <div className="right"></div>
+        <div className="right">
+          <PlayerContainer index={3} />
+        </div>
       </div>
       <div className="bottom">
+        <PlayerContainer index={0} />
         <Hand />
       </div>
     </div>

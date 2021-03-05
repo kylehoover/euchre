@@ -6,7 +6,10 @@
   overflow: hidden;
 
   .bottom {
-    padding: 1rem;
+    .PlayerContainer {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   .middle {
@@ -21,16 +24,18 @@
     }
 
     .left {
-      // border-right: 1px solid black;
-      // width: 10rem;
+      align-items: center;
+      display: flex;
     }
 
     .right {
-      // border-left: 1px solid black;
-      // width: 10rem;
+      align-items: center;
+      display: flex;
     }
   }
 
   .top {
+    display: flex;
+    justify-content: center;
   }
 }

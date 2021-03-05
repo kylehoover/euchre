@@ -40,7 +40,7 @@ export interface Round {
   isMisdeal: boolean;
   tricks: Trick[];
   trump?: CardSuit;
-  trumpCardFromDeck: Card;
+  trumpCardFromDeck?: Card;
 }
 
 export interface Player {
@@ -48,6 +48,7 @@ export interface Player {
   hand: Card[];
   isBot: boolean;
   isCurrentUser: boolean;
+  name: string;
   teamIndex: number;
 }
 

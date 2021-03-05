@@ -1,0 +1,12 @@
+.TrumpPicker {
+  position: relative;
+
+  .PlayingCard {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .back {
+    // transform: perspective(600px) rotateX
+  }
+}

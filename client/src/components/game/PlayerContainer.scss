@@ -1,0 +1,13 @@
+.PlayerContainer {
+  align-items: center;
+  display: flex;
+  padding: 0.5rem;
+
+  &.on-side {
+    flex-direction: column;
+  }
+
+  &:not(.on-side) > *:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}

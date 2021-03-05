@@ -5,7 +5,7 @@ import { shuffle } from "../../../helpers";
 import { nextIndex } from "../helpers";
 import { GameStep } from "../../../types";
 
-export const dealHands: CaseReducer<GameState> = (state) => {
+export const dealCards: CaseReducer<GameState> = (state) => {
   const deck = shuffle(createDeck());
   const { hands, remaining } = deal(deck);
   let currentIndex = state.activePlayerIndex;
@@ -16,5 +16,6 @@ export const dealHands: CaseReducer<GameState> = (state) => {
     currentIndex = nextIndex(currentIndex);
   });
 
+  state.rounds[state.rounds.length - 1].trumpCardFromDeck = remaining[0];
   state.step = GameStep.CallingTrump;
 };

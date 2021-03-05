@@ -5,15 +5,24 @@ import { randomInt } from "../../../helpers";
 import { startRound } from "./startRound";
 
 export const startGame: CaseReducer<GameState> = (state) => {
-  let botIdNum = 1;
+  let botNum = 1;
 
   state.teams.forEach((team, index) => {
     const numBots = 2 - team.playerIds.length;
 
     for (let i = 0; i < numBots; i++) {
-      const botId = `bot-${botIdNum++}`;
-      state.players[botId] = createPlayer(botId, index, false, true);
+      const botId = `bot-${botNum}`;
+
+      state.players[botId] = createPlayer(
+        botId,
+        index,
+        `Bot ${botNum}`,
+        false,
+        true,
+      );
+
       state.teams[index].playerIds.push(botId);
+      botNum++;
     }
   });
 
