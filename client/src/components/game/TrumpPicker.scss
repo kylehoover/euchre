@@ -1,12 +1,17 @@
 .TrumpPicker {
-  // position: relative;
+  display: flex;
 
-  .PlayingCard {
-    // position: absolute;
-    // transform: translate(-50%, -50%);
-  }
+  .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-  .back {
-    // transform: perspective(600px) rotateX
+    > *:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    button {
+      width: 100px;
+    }
   }
 }
