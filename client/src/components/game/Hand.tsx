@@ -5,6 +5,8 @@ import { sortCards } from "../../gameHelpers";
 import { useAppSelector } from "../../store";
 import "./Hand.scss";
 
+const AnimatedPlayingCard = animated(PlayingCard);
+
 function getKey({ suit, value }: Card): string {
   return `${value}-${suit}`;
 }
@@ -21,19 +23,13 @@ export function Hand() {
     from: { transform: "translateY(16rem)" },
   });
 
-  // if (hand.length === 0) {
-  //   return null;
-  // }
-
   return (
     <div className="Hand">
       {trail.map((props, index) => {
         const card = sortedHand[index];
 
         return (
-          <animated.div style={props} key={getKey(card)}>
-            <PlayingCard card={card} />
-          </animated.div>
+          <AnimatedPlayingCard card={card} style={props} key={getKey(card)} />
         );
       })}
     </div>

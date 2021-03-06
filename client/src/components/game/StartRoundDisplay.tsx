@@ -107,14 +107,11 @@ export function StartRoundDisplay() {
             dispatch(gameActions.dealCards());
           }
         },
-        onStart: () => {
-          console.log(direction);
-        },
       };
     }),
   );
 
-  useChain([roundBannerRef, deckRef, springsRef]);
+  useChain([/*roundBannerRef,*/ deckRef, springsRef]);
 
   return (
     <div className="StartRoundDisplay">
@@ -125,7 +122,7 @@ export function StartRoundDisplay() {
       </animated.div>
 
       <animated.div className="deck" style={deckProps}>
-        <PlayingCard />
+        <PlayingCard flipped />
 
         {springs.map((props, index) => (
           <animated.div
@@ -136,7 +133,7 @@ export function StartRoundDisplay() {
             }}
             key={index}
           >
-            <PlayingCard />
+            <PlayingCard flipped />
           </animated.div>
         ))}
       </animated.div>

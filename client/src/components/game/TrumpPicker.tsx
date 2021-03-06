@@ -1,39 +1,29 @@
-import { animated, useSpring } from "react-spring";
-import { useAppSelector } from "../../store";
+import { useEffect, useState } from "react";
 import { PlayingCard } from "./PlayingCard";
+import { delay } from "../../helpers";
+import { useAppSelector } from "../../store";
 import "./TrumpPicker.scss";
 
-const AnimatedPlayingCard = animated(PlayingCard);
-
 export function TrumpPicker() {
+  const [isFlipped, setIsFlipped] = useState(true);
+
   const card = useAppSelector((state) => {
     const { rounds } = state.game;
     return rounds[rounds.length - 1].trumpCardFromDeck;
   });
 
-  const backProps = useSpring({
-    opacity: 0,
-    transform: "perspective(600px) translate(-50%, -50%) rotateY(180deg)",
-    from: {
-      opacity: 1,
-      transform: "perspective(600px) translate(-50%, -50%) rotateY(0deg)",
-    },
-  });
-  const frontProps = useSpring({
-    opacity: 1,
-    transform:
-      "perspective(600px) translate(-50%, -50%) rotateY(180deg) rotateY(180deg)",
-    from: {
-      opacity: 0,
-      transform:
-        "perspective(600px) translate(-50%, -50%) rotateY(0deg) rotateY(180deg)",
-    },
-  });
+  useEffect(() => {
+    async function run() {
+      await delay(100);
+      setIsFlipped(false);
+    }
+
+    run();
+  }, []);
 
   return (
     <div className="TrumpPicker">
-      <AnimatedPlayingCard style={backProps} />
-      <AnimatedPlayingCard card={card} style={frontProps} />
+      <PlayingCard card={card} flipped={isFlipped} />
     </div>
   );
 }

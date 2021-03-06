@@ -25,7 +25,7 @@ export function Game() {
         isCurrentUser: true,
       }),
     );
-    // dispatch(gameActions.startGame());
+    dispatch(gameActions.startGame());
     // dispatch(gameActions.dealCards());
   }, [dispatch]);
 
