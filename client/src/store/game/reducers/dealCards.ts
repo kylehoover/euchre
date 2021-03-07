@@ -1,6 +1,6 @@
 import { CaseReducer } from "@reduxjs/toolkit";
 import { GameState } from "../types";
-import { createDeck, deal } from "../../../gameHelpers";
+import { createDeck, deal, sortCards } from "../../../gameHelpers";
 import { shuffle } from "../../../helpers";
 import { nextIndex } from "../helpers";
 import { GameStep } from "../../../types";
@@ -12,7 +12,7 @@ export const dealCards: CaseReducer<GameState> = (state) => {
 
   hands.forEach((hand) => {
     const playerId = state.playerOrder[currentIndex];
-    state.players[playerId].hand = hand;
+    state.players[playerId].hand = sortCards(hand);
     currentIndex = nextIndex(currentIndex);
   });
 

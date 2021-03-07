@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GameStep } from "../../types";
 import { GameState } from "./types";
-import { addPlayer, dealCards, startGame } from "./reducers";
+import {
+  addPlayer,
+  dealCards,
+  passCallingTrump,
+  pickUpTrump,
+  startGame,
+} from "./reducers";
 
 const initialState: GameState = {
   activePlayerIndex: 0,
@@ -21,6 +27,8 @@ const gameSlice = createSlice({
   reducers: {
     addPlayer,
     dealCards,
+    passCallingTrump,
+    pickUpTrump,
     startGame,
   },
 });

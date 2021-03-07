@@ -1,8 +1,18 @@
-1. start game
-2. start round
-    - [A] round banner slides down
-    - [A] cards are dealt to each player
-3. deal cards
-4. call trump
-    - [A] trump card from deck flips
-    - [A] actions slide in
+WaitingForPlayers
+  --> startGame --> StartingRound
+
+StartingRound
+  [A] round banner slides down
+  [A] cards are dealt to each player
+  --> dealCards --> CallingTrump
+
+CallingTrump
+  [A] trump card from deck flips over
+  [A] Pick Up/Pass actions slide in
+  --> pickUpTrump --> DealerDiscarding
+  --> passCallingTrump
+  --> callTrump
+
+DealerDiscarding
+  [A] trump card added to hand
+  --> discard

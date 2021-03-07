@@ -39,7 +39,7 @@ export function PlayingCard(props: Props) {
   });
 
   return (
-    <div className={classes} style={style}>
+    <animated.div className={classes} style={style}>
       <animated.div
         className="card"
         style={{ transform: deg.interpolate((deg) => `rotateY(${deg}deg)`) }}
@@ -63,6 +63,6 @@ export function PlayingCard(props: Props) {
           <div className="border" />
         </Paper>
       </animated.div>
-    </div>
+    </animated.div>
   );
 }

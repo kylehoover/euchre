@@ -8,6 +8,7 @@
   .bottom {
     .PlayerContainer {
       display: flex;
+      height: 32px;
       justify-content: center;
     }
   }
@@ -26,16 +27,21 @@
     .left {
       align-items: center;
       display: flex;
+      justify-content: center;
+      width: 80px;
     }
 
     .right {
       align-items: center;
       display: flex;
+      justify-content: center;
+      width: 80px;
     }
   }
 
   .top {
     display: flex;
+    height: 32px;
     justify-content: center;
   }
 }

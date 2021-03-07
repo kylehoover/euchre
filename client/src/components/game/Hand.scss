@@ -1,10 +1,10 @@
 .Hand {
   align-items: flex-start;
   display: flex;
-  height: 7rem;
+  height: 112px;
   justify-content: center;
 
   > *:not(:last-child) {
-    margin-right: 1rem;
+    margin-right: 16px;
   }
 }

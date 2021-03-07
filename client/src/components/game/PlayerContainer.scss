@@ -1,13 +1,17 @@
 .PlayerContainer {
   align-items: center;
   display: flex;
-  padding: 0.5rem;
+  padding: 8px;
 
   &.on-side {
     flex-direction: column;
+
+    .MuiChip-root:not(:last-child) {
+      margin-bottom: 4px;
+    }
   }
 
   &:not(.on-side) > *:not(:last-child) {
-    margin-right: 0.5rem;
+    margin-right: 8px;
   }
 }

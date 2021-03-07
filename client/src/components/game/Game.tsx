@@ -26,7 +26,7 @@ export function Game() {
       }),
     );
     dispatch(gameActions.startGame());
-    // dispatch(gameActions.dealCards());
+    dispatch(gameActions.dealCards());
   }, [dispatch]);
 
   return (
@@ -51,7 +51,8 @@ export function Game() {
 
           {step === GameStep.StartingRound && <StartRoundDisplay />}
 
-          {step === GameStep.CallingTrump && <TrumpPicker />}
+          {(step === GameStep.CallingTrump ||
+            step === GameStep.DealerDiscarding) && <TrumpPicker />}
         </div>
         <div className="right">
           <PlayerContainer index={3} />
