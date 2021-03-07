@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from "react";
 import { Button } from "@material-ui/core";
-import { Hand } from "./Hand";
 import { GameStep } from "../../types";
+import { Hand } from "./Hand";
+import { PlayerContainer } from "./PlayerContainer";
 import { StartRoundDisplay } from "./StartRoundDisplay";
+import { TrumpPicker } from "./TrumpPicker";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import "./Game.scss";
-import { PlayerContainer } from "./PlayerContainer";
-import { TrumpPicker } from "./TrumpPicker";
 
 export function Game() {
   const dispatch = useAppDispatch();

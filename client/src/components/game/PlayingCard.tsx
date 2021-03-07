@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Paper } from "@material-ui/core";
+import { animated, useSpring } from "react-spring";
 import { Card, CardSuit } from "../../types";
 import { ClubIcon, DiamondIcon, HeartIcon, SpadeIcon } from "../../assets";
 import "./PlayingCard.scss";
@@ -7,6 +8,7 @@ import "./PlayingCard.scss";
 interface Props {
   card?: Card;
   flipped?: boolean;
+  startFlipped?: boolean;
   style?: React.CSSProperties;
 }
 
@@ -24,15 +26,24 @@ function getIcon(suit: CardSuit) {
 }
 
 export function PlayingCard(props: Props) {
-  const { card, flipped = false, style } = props;
+  const { card, flipped = false, startFlipped = false, style } = props;
   const classes = classNames("PlayingCard", {
     [card?.suit ?? ""]: card?.suit !== undefined,
     flipped,
   });
 
+  const { deg } = useSpring({
+    deg: flipped ? -180 : 0,
+    from: { deg: flipped || startFlipped ? -180 : 0 },
+    config: { duration: 650 },
+  });
+
   return (
     <div className={classes} style={style}>
-      <div className="card">
+      <animated.div
+        className="card"
+        style={{ transform: deg.interpolate((deg) => `rotateY(${deg}deg)`) }}
+      >
         <Paper className="face">
           {card && (
             <>
@@ -51,7 +62,7 @@ export function PlayingCard(props: Props) {
         <Paper className="back">
           <div className="border" />
         </Paper>
-      </div>
+      </animated.div>
     </div>
   );
 }
