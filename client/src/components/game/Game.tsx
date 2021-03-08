@@ -1,31 +1,20 @@
-import { useCallback, useEffect } from "react";
-import { Button } from "@material-ui/core";
+import { useEffect } from "react";
 import { GameStep } from "../../types";
 import { Hand } from "./Hand";
 import { PlayerContainer } from "./PlayerContainer";
 import { StartRoundDisplay } from "./StartRoundDisplay";
 import { TrumpPicker } from "./TrumpPicker";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
+import { useBot } from "../bot";
 import "./Game.scss";
 
 export function Game() {
   const dispatch = useAppDispatch();
   const step = useAppSelector((state) => state.game.step);
-
-  const handleStartGame = useCallback(() => {
-    dispatch(gameActions.startGame());
-  }, [dispatch]);
+  useBot();
 
   useEffect(() => {
-    dispatch(
-      gameActions.addPlayer({
-        name: "You",
-        playerId: "1",
-        teamIndex: 0,
-        isCurrentUser: true,
-      }),
-    );
-    dispatch(gameActions.startGame());
+    console.log("Game effect");
     dispatch(gameActions.dealCards());
   }, [dispatch]);
 
@@ -39,16 +28,6 @@ export function Game() {
           <PlayerContainer index={1} />
         </div>
         <div className="center">
-          {step === GameStep.WaitingForPlayers && (
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={handleStartGame}
-            >
-              Start Game
-            </Button>
-          )}
-
           {step === GameStep.StartingRound && <StartRoundDisplay />}
 
           {(step === GameStep.CallingTrump ||

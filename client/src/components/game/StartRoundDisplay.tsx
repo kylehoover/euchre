@@ -11,10 +11,12 @@ import { PlayingCard } from "./PlayingCard";
 import { createAnimationDeck } from "../../gameHelpers";
 import { delay, getTransformToPlayerValues } from "../../helpers";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
+import { useMounted } from "../hooks";
 import "./StartRoundDisplay.scss";
 
 export function StartRoundDisplay() {
   const dispatch = useAppDispatch();
+  const isMounted = useMounted();
 
   const dealerIndex = useAppSelector((state) => state.game.dealerIndex);
   const roundNumber = useAppSelector((state) => state.game.rounds.length);
@@ -37,7 +39,6 @@ export function StartRoundDisplay() {
     from: { opacity: 0 },
     ref: deckRef,
   });
-
   const springsRef = useRef<ReactSpringHook>(null);
   const springs = useSprings(
     deck.length,
@@ -51,7 +52,7 @@ export function StartRoundDisplay() {
         delay: (deck.length - i - 1) * 150,
         ref: springsRef,
         onRest: () => {
-          if (i === 0) {
+          if (isMounted() && i === 0) {
             dispatch(gameActions.dealCards());
           }
         },

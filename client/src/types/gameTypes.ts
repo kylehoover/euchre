@@ -60,5 +60,5 @@ export enum GameStep {
   WaitingForPlayers = "WaitingForPlayers",
   StartingRound = "StartingRound",
   CallingTrump = "CallingTrump",
-  DealerDiscarding = "DealerDiscarding,",
+  DealerDiscarding = "DealerDiscarding",
 }
