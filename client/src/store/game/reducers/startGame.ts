@@ -40,7 +40,7 @@ export const startGame: CaseReducer<GameState> = (state) => {
   });
 
   // const dealerIndex = randomInt(0, 3);
-  const dealerIndex = 3;
+  const dealerIndex = 0;
   state.dealerIndex = dealerIndex;
   state.activePlayerIndex = nextIndex(dealerIndex);
 

@@ -61,4 +61,5 @@ export enum GameStep {
   StartingRound = "StartingRound",
   CallingTrump = "CallingTrump",
   DealerDiscarding = "DealerDiscarding",
+  PlayingCards = "PlayingCards",
 }

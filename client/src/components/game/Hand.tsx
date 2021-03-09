@@ -1,4 +1,4 @@
-import { useTrail } from "react-spring";
+import { useTransition } from "react-spring";
 import { PlayingCard } from "./PlayingCard";
 import { Card } from "../../types";
 import { useAppSelector } from "../../store";
@@ -13,18 +13,18 @@ export function Hand() {
     (state) => state.game.players[state.game.currentUserId]?.hand ?? [],
   );
 
-  const trail = useTrail(hand.length, {
-    transform: "translateY(0)",
+  const transitions = useTransition(hand, getKey, {
     from: { transform: "translateY(16rem)" },
+    enter: { transform: "translateY(0)" },
+    leave: { transform: "translateY(16rem)" },
+    trail: 100,
   });
 
   return (
     <div className="Hand">
-      {trail.map((props, index) => {
-        const card = hand[index];
-
-        return <PlayingCard card={card} style={props} key={getKey(card)} />;
-      })}
+      {transitions.map(({ item, key, props }) => (
+        <PlayingCard card={item} style={props} key={key} />
+      ))}
     </div>
   );
 }

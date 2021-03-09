@@ -7,7 +7,6 @@
 
   .bottom {
     .PlayerContainer {
-      display: flex;
       height: 32px;
       justify-content: center;
     }
@@ -40,8 +39,9 @@
   }
 
   .top {
-    display: flex;
-    height: 32px;
-    justify-content: center;
+    .PlayerContainer {
+      height: 32px;
+      justify-content: center;
+    }
   }
 }

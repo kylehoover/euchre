@@ -14,7 +14,6 @@ export function Game() {
   useBot();
 
   useEffect(() => {
-    console.log("Game effect");
     dispatch(gameActions.dealCards());
   }, [dispatch]);
 

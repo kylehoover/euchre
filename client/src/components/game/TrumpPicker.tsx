@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import { animated, useSpring } from "react-spring";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { GameStep } from "../../types";
 import { PlayingCard } from "./PlayingCard";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
@@ -10,6 +10,8 @@ import "./TrumpPicker.scss";
 
 export function TrumpPicker() {
   const dispatch = useAppDispatch();
+  const [didPickUp, setDidPickUp] = useState(false);
+
   const activePlayerIndex = useAppSelector(
     (state) => state.game.activePlayerIndex,
   );
@@ -18,29 +20,32 @@ export function TrumpPicker() {
   const trumpCard = useAppSelector(
     (state) => getCurrentRound(state.game).trumpCardFromDeck,
   );
-
-  const isDealerDiscarding = step === GameStep.DealerDiscarding;
-  const isDisabled = activePlayerIndex !== 0;
+  const isDisabled = activePlayerIndex !== 0 || didPickUp;
 
   const actionsSpring = useSpring({
-    opacity: isDealerDiscarding ? 0 : 1,
+    opacity: didPickUp ? 0 : 1,
     padding: 16,
     width: 100,
     from: { opacity: 0, padding: 0, width: 0 },
-    delay: isDealerDiscarding ? 0 : 500,
+    delay: didPickUp ? 0 : 500,
   });
 
-  const [x, y] = isDealerDiscarding
+  const [x, y] = didPickUp
     ? getTransformToPlayerValues(dealerIndex, 50, 50)
     : [0, 0];
   const cardSpring = useSpring({
     transform: `translate(${x}px, ${y}px)`,
     from: { transform: "translate(0px, 0px)" },
+    onRest: () => {
+      if (step === GameStep.CallingTrump && didPickUp) {
+        dispatch(gameActions.pickUpTrump());
+      }
+    },
   });
 
   const handlePickUp = useCallback(() => {
-    dispatch(gameActions.pickUpTrump());
-  }, [dispatch]);
+    setDidPickUp(true);
+  }, []);
 
   const handlePass = useCallback(() => {
     dispatch(gameActions.passCallingTrump());
