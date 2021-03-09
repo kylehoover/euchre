@@ -11,4 +11,6 @@ export function startRound(state: GameState): void {
   });
 
   state.step = GameStep.StartingRound;
+  state.log.push(`Start round: ${state.rounds.length}`);
+  state.log.push(`Step: ${state.step}`);
 }

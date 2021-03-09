@@ -1,0 +1,11 @@
+.GameLog {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  max-height: 100px;
+  overflow-y: scroll;
+  padding: 4px;
+  position: absolute;
+  right: 0;
+  // text-align: right;
+  top: 0;
+}

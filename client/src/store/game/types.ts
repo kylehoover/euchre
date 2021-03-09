@@ -5,6 +5,7 @@ export interface GameState {
   currentUserId: string;
   currentUserIndex: number;
   dealerIndex: number;
+  log: string[];
   playerOrder: string[];
   players: {
     [id: string]: Player;

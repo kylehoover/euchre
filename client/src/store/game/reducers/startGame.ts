@@ -6,6 +6,7 @@ import { startRound } from "./startRound";
 
 export const startGame: CaseReducer<GameState> = (state) => {
   let botNum = 1;
+  state.log.push("Start game");
 
   state.teams.forEach((team, index) => {
     const numBots = 2 - team.playerIds.length;
@@ -22,6 +23,7 @@ export const startGame: CaseReducer<GameState> = (state) => {
       );
 
       state.teams[index].playerIds.push(botId);
+      state.log.push(`Add bot: ${botNum}`);
       botNum++;
     }
   });
@@ -43,6 +45,9 @@ export const startGame: CaseReducer<GameState> = (state) => {
   const dealerIndex = 0;
   state.dealerIndex = dealerIndex;
   state.activePlayerIndex = nextIndex(dealerIndex);
+
+  state.log.push(`Dealer: ${dealerIndex}`);
+  state.log.push(`Active: ${state.activePlayerIndex}`);
 
   startRound(state);
 };

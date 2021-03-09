@@ -14,9 +14,9 @@ export function Hand() {
   );
 
   const transitions = useTransition(hand, getKey, {
-    from: { transform: "translateY(16rem)" },
-    enter: { transform: "translateY(0)" },
-    leave: { transform: "translateY(16rem)" },
+    from: { transform: "translateY(16rem)", width: 0 },
+    enter: { transform: "translateY(0)", width: 160 },
+    leave: { transform: "translateY(16rem)", width: 0 },
     trail: 100,
   });
 

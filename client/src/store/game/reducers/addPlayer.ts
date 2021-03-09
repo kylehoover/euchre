@@ -25,4 +25,6 @@ export const addPlayer: CaseReducer<GameState, PayloadAction<Payload>> = (
   if (isCurrentUser) {
     state.currentUserId = playerId;
   }
+
+  state.log.push(`Add player: ${playerId}`);
 };

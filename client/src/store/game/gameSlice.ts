@@ -15,6 +15,7 @@ const initialState: GameState = {
   currentUserId: "",
   currentUserIndex: 0,
   dealerIndex: 0,
+  log: [`Step: ${GameStep.WaitingForPlayers}`],
   playerOrder: [],
   players: {},
   rounds: [],

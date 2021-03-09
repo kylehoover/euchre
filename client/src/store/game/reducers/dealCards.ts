@@ -18,4 +18,7 @@ export const dealCards: CaseReducer<GameState> = (state) => {
 
   state.rounds[state.rounds.length - 1].trumpCardFromDeck = remaining[0];
   state.step = GameStep.CallingTrump;
+
+  state.log.push("Deal cards");
+  state.log.push(`Step: ${GameStep.CallingTrump}`);
 };
