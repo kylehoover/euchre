@@ -19,7 +19,7 @@ export function GameLobby() {
         isCurrentUser: true,
       }),
     );
-    // dispatch(gameActions.startGame());
+    dispatch(gameActions.startGame());
   }, [dispatch]);
 
   return (

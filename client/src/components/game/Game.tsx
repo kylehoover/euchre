@@ -15,7 +15,7 @@ export function Game() {
   useBot();
 
   useEffect(() => {
-    // dispatch(gameActions.dealCards());
+    dispatch(gameActions.dealCards());
   }, [dispatch]);
 
   return (

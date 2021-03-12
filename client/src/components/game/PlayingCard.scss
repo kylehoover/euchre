@@ -24,6 +24,10 @@
     }
   }
 
+  &.actionable:hover {
+    cursor: pointer;
+  }
+
   svg {
     height: 24px;
     width: 24px;
@@ -42,6 +46,7 @@
     height: 100%;
     padding: 8px;
     position: absolute;
+    transition: box-shadow 0.5s;
     width: 100%;
   }
 
@@ -75,5 +80,11 @@
     ~ .signature {
       transform: scale(-1, -1);
     }
+  }
+
+  .scale-container {
+    height: 100%;
+    transform-style: preserve-3d;
+    width: 100%;
   }
 }

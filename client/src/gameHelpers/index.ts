@@ -1,3 +1,4 @@
+export { compareCards } from "./compareCards";
 export { createAnimationDeck } from "./createAnimationDeck";
 export { createDeck } from "./createDeck";
 export { deal } from "./deal";

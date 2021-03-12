@@ -1,6 +1,6 @@
 import { CaseReducer } from "@reduxjs/toolkit";
 import { GameState } from "../types";
-import { nextIndex } from "../helpers";
+import { log, nextIndex } from "../helpers";
 import { getCurrentRound } from "../../../gameHelpers";
 
 export const passCallingTrump: CaseReducer<GameState> = (state) => {
@@ -16,4 +16,7 @@ export const passCallingTrump: CaseReducer<GameState> = (state) => {
   }
 
   state.activePlayerIndex = nextIndex(activePlayerIndex);
+
+  log(state, `[${activePlayerIndex}]: pass`);
+  log(state, `Active: ${state.activePlayerIndex}`);
 };
