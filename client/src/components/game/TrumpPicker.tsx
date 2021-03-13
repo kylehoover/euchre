@@ -1,7 +1,8 @@
-import { Button } from "@material-ui/core";
+import { Button, ButtonGroup } from "@material-ui/core";
 import { animated, useSpring } from "react-spring";
 import { useCallback, useState } from "react";
-import { GameStep } from "../../types";
+import { ClubIcon, DiamondIcon, HeartIcon, SpadeIcon } from "../../assets";
+import { CardSuit, GameStep } from "../../types";
 import { PlayingCard } from "./PlayingCard";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import { getTransformToPlayerValues } from "../../helpers";
@@ -17,15 +18,14 @@ export function TrumpPicker() {
   );
   const dealerIndex = useAppSelector((state) => state.game.dealerIndex);
   const step = useAppSelector((state) => state.game.step);
-  const trumpCard = useAppSelector(
-    (state) => getCurrentRound(state.game).trumpCardFromDeck,
-  );
+  const round = useAppSelector((state) => getCurrentRound(state.game));
+  const { dealerPassed, trumpCardFromDeck } = round;
   const isDisabled = activePlayerIndex !== 0 || didPickUp;
 
   const actionsSpring = useSpring({
     opacity: didPickUp ? 0 : 1,
     padding: 16,
-    width: 100,
+    width: 128,
     from: { opacity: 0, padding: 0, width: 0 },
     delay: didPickUp ? 0 : 500,
   });
@@ -33,6 +33,7 @@ export function TrumpPicker() {
   const [x, y] = didPickUp
     ? getTransformToPlayerValues(dealerIndex, 50, 50)
     : [0, 0];
+
   const cardSpring = useSpring({
     transform: `translate(${x}px, ${y}px)`,
     from: { transform: "translate(0px, 0px)" },
@@ -41,6 +42,19 @@ export function TrumpPicker() {
         dispatch(gameActions.pickUpTrump());
       }
     },
+  });
+
+  const pickUpButtonSpring = useSpring({
+    height: dealerPassed ? 0 : 36,
+    marginBottom: dealerPassed ? 0 : 16,
+    opacity: dealerPassed ? 0 : 1,
+  });
+
+  const suitButtonsSpring = useSpring({
+    height: dealerPassed ? 141 : 0,
+    marginBottom: dealerPassed ? 16 : 0,
+    opacity: dealerPassed ? 1 : 0,
+    from: { height: 0, marginBottom: 0, opacity: 0 },
   });
 
   const handlePickUp = useCallback(() => {
@@ -53,16 +67,60 @@ export function TrumpPicker() {
 
   return (
     <div className="TrumpPicker">
-      <PlayingCard card={trumpCard} style={cardSpring} startFlipped />
+      <PlayingCard
+        card={trumpCardFromDeck}
+        style={cardSpring}
+        flipped={dealerPassed}
+        startFlipped
+      />
       <animated.div className="actions" style={actionsSpring}>
-        <Button
-          color="primary"
-          variant="contained"
-          disabled={isDisabled}
-          onClick={handlePickUp}
-        >
-          Pick up
-        </Button>
+        <animated.div className="suit-buttons" style={suitButtonsSpring}>
+          <ButtonGroup
+            orientation="vertical"
+            disabled={isDisabled}
+            aria-label="vertical outlined primary button group"
+          >
+            <Button
+              className="clubs"
+              startIcon={<ClubIcon />}
+              disabled={trumpCardFromDeck!.suit === CardSuit.Clubs}
+            >
+              Clubs
+            </Button>
+            <Button
+              className="diamonds"
+              startIcon={<DiamondIcon />}
+              disabled={trumpCardFromDeck!.suit === CardSuit.Diamonds}
+            >
+              Diamonds
+            </Button>
+            <Button
+              className="hearts"
+              startIcon={<HeartIcon />}
+              disabled={trumpCardFromDeck!.suit === CardSuit.Hearts}
+            >
+              Hearts
+            </Button>
+            <Button
+              className="spades"
+              startIcon={<SpadeIcon />}
+              disabled={trumpCardFromDeck!.suit === CardSuit.Spades}
+            >
+              Spades
+            </Button>
+          </ButtonGroup>
+        </animated.div>
+
+        <animated.div style={pickUpButtonSpring}>
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={isDisabled}
+            onClick={handlePickUp}
+          >
+            Pick up
+          </Button>
+        </animated.div>
         <Button
           color="secondary"
           variant="contained"

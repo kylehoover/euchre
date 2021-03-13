@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTransition } from "react-spring";
 import { PlayingCard } from "./PlayingCard";
 import { Card, GameStep } from "../../types";
-import { compareCards } from "../../gameHelpers";
+import { isSameCard } from "../../gameHelpers";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import "./Hand.scss";
 
@@ -26,14 +26,6 @@ export function Hand() {
 
   const [isDiscarding, setIsDiscarding] = useState(false);
 
-  useEffect(() => {
-    if (activePlayerIndex === 0 && step === GameStep.DealerDiscarding) {
-      setTimeout(() => setIsDiscarding(true), 750);
-    } else if (isDiscarding) {
-      setTimeout(() => setIsDiscarding(false), 750);
-    }
-  }, [activePlayerIndex, step]);
-
   const transitions = useTransition(hand, getKey, {
     from: {
       marginLeft: hand.length === 6 ? 0 : 8,
@@ -48,7 +40,7 @@ export function Hand() {
       width: 160,
     },
     update: (card) => {
-      const moveUp = isDiscarding && compareCards(card, trumpCard) !== 0;
+      const moveUp = isDiscarding && !isSameCard(card, trumpCard);
       return { transform: moveUp ? "translateY(8px)" : "translateY(32px)" };
     },
     leave: {
@@ -60,10 +52,18 @@ export function Hand() {
     trail: step === GameStep.CallingTrump ? 100 : 0,
   });
 
+  useEffect(() => {
+    if (activePlayerIndex === 0 && step === GameStep.DealerDiscarding) {
+      setTimeout(() => setIsDiscarding(true), 750);
+    } else if (isDiscarding) {
+      setTimeout(() => setIsDiscarding(false), 750);
+    }
+  }, [activePlayerIndex, isDiscarding, step]);
+
   return (
     <div className="Hand">
       {transitions.map(({ item, key, props }, index) => {
-        const actionable = isDiscarding && compareCards(item, trumpCard) !== 0;
+        const actionable = isDiscarding && !isSameCard(item, trumpCard);
         return (
           <PlayingCard
             card={item}

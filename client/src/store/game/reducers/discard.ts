@@ -8,10 +8,10 @@ export const discard: CaseReducer<GameState, PayloadAction<number>> = (
   state,
   action,
 ) => {
-  const { activePlayerIndex } = state;
+  const { activePlayerIndex, dealerIndex } = state;
   const player = getActivePlayer(state);
   player.hand.splice(action.payload, 1);
-  state.activePlayerIndex = nextIndex(state.dealerIndex);
+  state.activePlayerIndex = nextIndex(dealerIndex);
   state.step = GameStep.PlayingCards;
 
   log(state, `[${activePlayerIndex}]: discard`);

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { GameStep } from "../../types";
-import { GameLog } from "./GameLog";
 import { Hand } from "./Hand";
 import { PlayerContainer } from "./PlayerContainer";
 import { StartRoundDisplay } from "./StartRoundDisplay";
