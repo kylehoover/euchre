@@ -68,13 +68,9 @@ export function TrumpPicker() {
     from: { height: 0, marginBottom: 0, opacity: 0 },
   });
 
-  const handleCallTrump = useCallback(
-    (suit: CardSuit) => {
-      // dispatch(gameActions.callTrump(suit));
-      setCalledTrump(suit);
-    },
-    [dispatch],
-  );
+  const handleCallTrump = useCallback((suit: CardSuit) => {
+    setCalledTrump(suit);
+  }, []);
 
   const handlePickUp = useCallback(() => {
     setDidPickUp(true);

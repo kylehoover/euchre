@@ -10,7 +10,6 @@ export const callTrump: CaseReducer<GameState, PayloadAction<CardSuit>> = (
 ) => {
   const { activePlayerIndex, dealerIndex } = state;
   const round = getCurrentRound(state);
-  const dealer = state.players[round.dealerId];
   round.callerId = state.playerOrder[activePlayerIndex];
   round.trump = action.payload;
   state.activePlayerIndex = nextIndex(dealerIndex);

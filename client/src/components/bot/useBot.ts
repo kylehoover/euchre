@@ -1,43 +1,19 @@
-import { useCallback, useEffect } from "react";
-import { GameStep, Player } from "../../types";
-import { gameActions, useAppDispatch, useAppSelector } from "../../store";
-import { delay } from "../../helpers";
-import {
-  getActivePlayer,
-  getCurrentRound,
-  pickCardToDiscard,
-} from "../../gameHelpers";
+import { useEffect } from "react";
+import { GameStep } from "../../types";
+import { useAppSelector } from "../../store";
+import { getActivePlayer } from "../../gameHelpers";
+import { useCallTrump } from "./useCallTrump";
+import { useDiscard } from "./useDiscard";
 
 export function useBot() {
-  const dispatch = useAppDispatch();
   const game = useAppSelector((state) => state.game);
-  const { step } = game;
   const activePlayer = getActivePlayer(game);
-  const round = getCurrentRound(game);
+  const { step } = game;
 
-  const callTrump = useCallback(async () => {
-    await delay(500);
-
-    if (!round.dealerPassed) {
-      dispatch(gameActions.passCallingTrump());
-    } else {
-      // getTrumpToCall()
-      dispatch(gameActions.passCallingTrump());
-    }
-  }, [dispatch, round.dealerPassed]);
-
-  const discard = useCallback(async () => {
-    await delay(1500);
-
-    dispatch(
-      gameActions.discard(
-        pickCardToDiscard(activePlayer.hand, round.trumpCardFromDeck!),
-      ),
-    );
-  }, [activePlayer.hand, dispatch, round.trumpCardFromDeck]);
+  const callTrump = useCallTrump();
+  const discard = useDiscard();
 
   useEffect(() => {
-    console.log("bot effect", step);
     if (!activePlayer.isBot) {
       return;
     }
@@ -50,5 +26,5 @@ export function useBot() {
         discard();
         break;
     }
-  }, [activePlayer.id, callTrump, discard, dispatch, step]);
+  }, [activePlayer.id, activePlayer.isBot, callTrump, discard, step]);
 }
