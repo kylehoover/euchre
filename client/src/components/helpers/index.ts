@@ -1,0 +1,1 @@
+export { getSuitIcon } from "./getSuitIcon";

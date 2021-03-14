@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { Paper } from "@material-ui/core";
 import { animated, useSpring } from "react-spring";
-import { Card, CardSuit } from "../../types";
-import { ClubIcon, DiamondIcon, HeartIcon, SpadeIcon } from "../../assets";
+import { Card } from "../../types";
+import { getSuitIcon } from "../helpers";
 import "./PlayingCard.scss";
 
 interface Props {
@@ -12,19 +12,6 @@ interface Props {
   startFlipped?: boolean;
   style?: React.CSSProperties;
   onClick?: () => void;
-}
-
-function getIcon(suit: CardSuit) {
-  switch (suit) {
-    case CardSuit.Clubs:
-      return <ClubIcon />;
-    case CardSuit.Diamonds:
-      return <DiamondIcon />;
-    case CardSuit.Hearts:
-      return <HeartIcon />;
-    case CardSuit.Spades:
-      return <SpadeIcon />;
-  }
 }
 
 export function PlayingCard(props: Props) {
@@ -92,12 +79,12 @@ export function PlayingCard(props: Props) {
               <>
                 <div className="signature">
                   <div>{card.value}</div>
-                  {getIcon(card.suit)}
+                  {getSuitIcon(card.suit)}
                 </div>
                 <div className="pips"></div>
                 <div className="signature">
                   <div>{card.value}</div>
-                  {getIcon(card.suit)}
+                  {getSuitIcon(card.suit)}
                 </div>
               </>
             )}

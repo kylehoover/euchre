@@ -3,6 +3,7 @@ import { GameStep } from "../../types";
 import { GameState } from "./types";
 import {
   addPlayer,
+  callTrump,
   dealCards,
   discard,
   passCallingTrump,
@@ -28,6 +29,7 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     addPlayer,
+    callTrump,
     dealCards,
     discard,
     passCallingTrump,

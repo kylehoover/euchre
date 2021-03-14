@@ -1,16 +1,17 @@
 import { Button, ButtonGroup } from "@material-ui/core";
 import { animated, useSpring } from "react-spring";
 import { useCallback, useState } from "react";
-import { ClubIcon, DiamondIcon, HeartIcon, SpadeIcon } from "../../assets";
 import { CardSuit, GameStep } from "../../types";
 import { PlayingCard } from "./PlayingCard";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import { getTransformToPlayerValues } from "../../helpers";
 import { getCurrentRound } from "../../gameHelpers";
+import { getSuitIcon } from "../helpers";
 import "./TrumpPicker.scss";
 
 export function TrumpPicker() {
   const dispatch = useAppDispatch();
+  const [calledTrump, setCalledTrump] = useState<CardSuit | null>(null);
   const [didPickUp, setDidPickUp] = useState(false);
 
   const activePlayerIndex = useAppSelector(
@@ -21,6 +22,16 @@ export function TrumpPicker() {
   const round = useAppSelector((state) => getCurrentRound(state.game));
   const { dealerPassed, trumpCardFromDeck } = round;
   const isDisabled = activePlayerIndex !== 0 || didPickUp;
+  const isPassDisabled = dealerPassed && dealerIndex === 0;
+
+  const rootSpring = useSpring({
+    opacity: calledTrump ? 0 : 1,
+    onRest: () => {
+      if (calledTrump) {
+        dispatch(gameActions.callTrump(calledTrump));
+      }
+    },
+  });
 
   const actionsSpring = useSpring({
     opacity: didPickUp ? 0 : 1,
@@ -31,7 +42,7 @@ export function TrumpPicker() {
   });
 
   const [x, y] = didPickUp
-    ? getTransformToPlayerValues(dealerIndex, 50, 50)
+    ? getTransformToPlayerValues(dealerIndex, 65, 50)
     : [0, 0];
 
   const cardSpring = useSpring({
@@ -57,6 +68,14 @@ export function TrumpPicker() {
     from: { height: 0, marginBottom: 0, opacity: 0 },
   });
 
+  const handleCallTrump = useCallback(
+    (suit: CardSuit) => {
+      // dispatch(gameActions.callTrump(suit));
+      setCalledTrump(suit);
+    },
+    [dispatch],
+  );
+
   const handlePickUp = useCallback(() => {
     setDidPickUp(true);
   }, []);
@@ -66,7 +85,7 @@ export function TrumpPicker() {
   }, [dispatch]);
 
   return (
-    <div className="TrumpPicker">
+    <animated.div className="TrumpPicker" style={rootSpring}>
       <PlayingCard
         card={trumpCardFromDeck}
         style={cardSpring}
@@ -80,34 +99,17 @@ export function TrumpPicker() {
             disabled={isDisabled}
             aria-label="vertical outlined primary button group"
           >
-            <Button
-              className="clubs"
-              startIcon={<ClubIcon />}
-              disabled={trumpCardFromDeck!.suit === CardSuit.Clubs}
-            >
-              Clubs
-            </Button>
-            <Button
-              className="diamonds"
-              startIcon={<DiamondIcon />}
-              disabled={trumpCardFromDeck!.suit === CardSuit.Diamonds}
-            >
-              Diamonds
-            </Button>
-            <Button
-              className="hearts"
-              startIcon={<HeartIcon />}
-              disabled={trumpCardFromDeck!.suit === CardSuit.Hearts}
-            >
-              Hearts
-            </Button>
-            <Button
-              className="spades"
-              startIcon={<SpadeIcon />}
-              disabled={trumpCardFromDeck!.suit === CardSuit.Spades}
-            >
-              Spades
-            </Button>
+            {Object.values(CardSuit).map((suit) => (
+              <Button
+                className={suit}
+                startIcon={getSuitIcon(suit)}
+                disabled={trumpCardFromDeck!.suit === suit}
+                onClick={() => handleCallTrump(suit)}
+                key={suit}
+              >
+                {suit}
+              </Button>
+            ))}
           </ButtonGroup>
         </animated.div>
 
@@ -115,7 +117,7 @@ export function TrumpPicker() {
           <Button
             color="primary"
             variant="contained"
-            disabled={isDisabled}
+            disabled={isDisabled || dealerPassed}
             onClick={handlePickUp}
           >
             Pick up
@@ -124,12 +126,12 @@ export function TrumpPicker() {
         <Button
           color="secondary"
           variant="contained"
-          disabled={isDisabled}
+          disabled={isDisabled || isPassDisabled}
           onClick={handlePass}
         >
           Pass
         </Button>
       </animated.div>
-    </div>
+    </animated.div>
   );
 }
