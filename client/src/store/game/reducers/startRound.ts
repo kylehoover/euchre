@@ -8,7 +8,7 @@ export function startRound(state: GameState): void {
     dealerId: state.playerOrder[state.dealerIndex],
     dealerPassed: false,
     isMisdeal: false,
-    tricks: [{ cards: [] }],
+    tricks: [{ cards: [], winningPlayerId: "", winningTeamIndex: -1 }],
   });
 
   state.step = GameStep.StartingRound;

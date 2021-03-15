@@ -4,6 +4,7 @@ export { createDeck } from "./createDeck";
 export { deal } from "./deal";
 export { getActivePlayer } from "./getActivePlayer";
 export { getCurrentRound } from "./getCurrentRound";
+export { getWinningPlayerId } from "./getWinningPlayerId";
 export { isSameCard } from "./isSameCard";
 export { pickCardToDiscard } from "./pickCardToDiscard";
 export { sortCards } from "./sortCards";

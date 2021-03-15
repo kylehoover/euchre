@@ -1,5 +1,5 @@
 import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
-import { getCurrentRound } from "../../../gameHelpers";
+import { getCurrentRound, sortCards } from "../../../gameHelpers";
 import { CardSuit, GameStep } from "../../../types";
 import { GameState } from "../types";
 import { log, nextIndex } from "../helpers";
@@ -14,6 +14,13 @@ export const callTrump: CaseReducer<GameState, PayloadAction<CardSuit>> = (
   round.trump = action.payload;
   state.activePlayerIndex = nextIndex(dealerIndex);
   state.step = GameStep.PlayingCards;
+
+  state.playerOrder.forEach((playerId) => {
+    state.players[playerId].hand = sortCards(
+      state.players[playerId].hand,
+      round.trump,
+    );
+  });
 
   log(state, `[${activePlayerIndex}]: call ${round.trump}`);
   log(state, `Step: ${state.step}`);

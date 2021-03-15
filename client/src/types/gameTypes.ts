@@ -6,13 +6,6 @@ export enum CardSuit {
 }
 
 export type CardValue =
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
   | 9
   | 10
   | "J" // Jack
@@ -31,6 +24,8 @@ export interface CardPlayed extends Card {
 
 export interface Trick {
   cards: CardPlayed[];
+  winningPlayerId: string;
+  winningTeamIndex: number;
 }
 
 export interface Round {
@@ -54,6 +49,7 @@ export interface Player {
 
 export interface Team {
   playerIds: string[];
+  points: number;
 }
 
 export enum GameStep {
@@ -62,4 +58,5 @@ export enum GameStep {
   CallingTrump = "CallingTrump",
   DealerDiscarding = "DealerDiscarding",
   PlayingCards = "PlayingCards",
+  EndingTrick = "EndingTrick",
 }

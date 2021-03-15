@@ -22,7 +22,10 @@ const initialState: GameState = {
   players: {},
   rounds: [],
   step: GameStep.WaitingForPlayers,
-  teams: [{ playerIds: [] }, { playerIds: [] }],
+  teams: [
+    { playerIds: [], points: 0 },
+    { playerIds: [], points: 0 },
+  ],
 };
 
 const gameSlice = createSlice({

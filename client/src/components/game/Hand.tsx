@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTransition } from "react-spring";
 import { PlayingCard } from "./PlayingCard";
 import { Card, GameStep } from "../../types";
@@ -26,6 +26,10 @@ export function Hand() {
 
   const [isDiscarding, setIsDiscarding] = useState(false);
 
+  const isActionable = (card: Card) =>
+    (isDiscarding && !isSameCard(card, trumpCard)) ||
+    (activePlayerIndex === 0 && step === GameStep.PlayingCards);
+
   const transitions = useTransition(hand, getKey, {
     from: {
       marginLeft: hand.length === 6 ? 0 : 8,
@@ -40,8 +44,9 @@ export function Hand() {
       width: 160,
     },
     update: (card) => {
-      const moveUp = isDiscarding && !isSameCard(card, trumpCard);
-      return { transform: moveUp ? "translateY(8px)" : "translateY(32px)" };
+      return {
+        transform: isActionable(card) ? "translateY(8px)" : "translateY(32px)",
+      };
     },
     leave: {
       marginLeft: 0,
@@ -63,15 +68,20 @@ export function Hand() {
   return (
     <div className="Hand">
       {transitions.map(({ item, key, props }, index) => {
-        const actionable = isDiscarding && !isSameCard(item, trumpCard);
         return (
           <PlayingCard
             card={item}
-            actionable={actionable}
+            actionable={isActionable(item)}
             style={props}
             onClick={() => {
-              if (step === GameStep.DealerDiscarding) {
-                dispatch(gameActions.discard(index));
+              switch (step) {
+                case GameStep.DealerDiscarding:
+                  dispatch(gameActions.discard(index));
+                  break;
+
+                case GameStep.PlayingCards:
+                  dispatch(gameActions.playCard(index));
+                  break;
               }
             }}
             key={key}

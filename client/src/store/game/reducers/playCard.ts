@@ -1,7 +1,9 @@
 import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
 import { getActivePlayer, getCurrentRound } from "../../../gameHelpers";
+import { GameStep } from "../../../types";
 import { log, nextIndex } from "../helpers";
 import { GameState } from "../types";
+import { endTrick } from "./endTrick";
 
 export const playCard: CaseReducer<GameState, PayloadAction<number>> = (
   state,
@@ -16,8 +18,13 @@ export const playCard: CaseReducer<GameState, PayloadAction<number>> = (
     ...card,
     playerId: playerOrder[activePlayerIndex],
   });
-  state.activePlayerIndex = nextIndex(activePlayerIndex);
 
   log(state, `[${activePlayerIndex}]: play ${card.value} ${card.suit}`);
-  log(state, `Active: ${state.activePlayerIndex}`);
+
+  if (trick.cards.length < 4) {
+    state.activePlayerIndex = nextIndex(activePlayerIndex);
+    log(state, `Active: ${state.activePlayerIndex}`);
+  } else {
+    endTrick(state);
+  }
 };

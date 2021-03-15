@@ -14,6 +14,10 @@ export const pickUpTrump: CaseReducer<GameState> = (state) => {
   state.activePlayerIndex = state.dealerIndex;
   state.step = GameStep.DealerDiscarding;
 
+  state.playerOrder.forEach((playerId) => {
+    state.players[playerId].hand = sortCards(state.players[playerId].hand);
+  });
+
   log(state, `[${activePlayerIndex}]: pick up`);
   log(state, `Step: ${state.step}`);
   log(state, `Active: ${state.activePlayerIndex}`);
