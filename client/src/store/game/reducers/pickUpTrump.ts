@@ -15,6 +15,6 @@ export const pickUpTrump: CaseReducer<GameState> = (state) => {
   state.step = GameStep.DealerDiscarding;
 
   log(state, `[${activePlayerIndex}]: pick up`);
-  log(state, `Active: ${state.activePlayerIndex}`);
   log(state, `Step: ${state.step}`);
+  log(state, `Active: ${state.activePlayerIndex}`);
 };

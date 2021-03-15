@@ -15,6 +15,6 @@ export const discard: CaseReducer<GameState, PayloadAction<number>> = (
   state.step = GameStep.PlayingCards;
 
   log(state, `[${activePlayerIndex}]: discard`);
-  log(state, `Active: ${state.activePlayerIndex}`);
   log(state, `Step: ${state.step}`);
+  log(state, `Active: ${state.activePlayerIndex}`);
 };

@@ -16,6 +16,6 @@ export const callTrump: CaseReducer<GameState, PayloadAction<CardSuit>> = (
   state.step = GameStep.PlayingCards;
 
   log(state, `[${activePlayerIndex}]: call ${round.trump}`);
-  log(state, `Active: ${state.activePlayerIndex}`);
   log(state, `Step: ${state.step}`);
+  log(state, `Active: ${state.activePlayerIndex}`);
 };

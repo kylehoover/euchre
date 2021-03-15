@@ -8,6 +8,7 @@ import {
   discard,
   passCallingTrump,
   pickUpTrump,
+  playCard,
   startGame,
 } from "./reducers";
 
@@ -34,6 +35,7 @@ const gameSlice = createSlice({
     discard,
     passCallingTrump,
     pickUpTrump,
+    playCard,
     startGame,
   },
 });

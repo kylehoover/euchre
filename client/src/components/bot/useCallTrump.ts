@@ -1,23 +1,41 @@
 import { useCallback } from "react";
 import { delay } from "../../helpers";
-import { getCurrentRound } from "../../gameHelpers";
+import { getActivePlayer, getCurrentRound } from "../../gameHelpers";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
+import { pickTrumpToCall } from "../../gameHelpers/pickTrumpToCall";
 
 export function useCallTrump() {
   const dispatch = useAppDispatch();
-  const dealerPassed = useAppSelector(
-    (state) => getCurrentRound(state.game).dealerPassed,
-  );
+  const game = useAppSelector((state) => state.game);
+  const player = getActivePlayer(game);
+  const { activePlayerIndex, dealerIndex } = game;
+  const { dealerPassed, trumpCardFromDeck } = getCurrentRound(game);
 
   return useCallback(async () => {
     await delay(500);
 
     if (!dealerPassed) {
-      // flesh out logic
+      // TODO: flesh out logic
       dispatch(gameActions.passCallingTrump());
     } else {
-      // getTrumpToCall()
-      dispatch(gameActions.passCallingTrump());
+      if (activePlayerIndex === dealerIndex) {
+        await delay(500);
+
+        dispatch(
+          gameActions.callTrump(
+            pickTrumpToCall(player.hand, trumpCardFromDeck!),
+          ),
+        );
+      } else {
+        dispatch(gameActions.passCallingTrump());
+      }
     }
-  }, [dispatch, dealerPassed]);
+  }, [
+    activePlayerIndex,
+    dealerPassed,
+    dealerIndex,
+    dispatch,
+    player.hand,
+    trumpCardFromDeck,
+  ]);
 }

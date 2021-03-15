@@ -46,8 +46,5 @@ export const startGame: CaseReducer<GameState> = (state) => {
   state.dealerIndex = dealerIndex;
   state.activePlayerIndex = nextIndex(dealerIndex);
 
-  state.log.push(`Dealer: ${dealerIndex}`);
-  state.log.push(`Active: ${state.activePlayerIndex}`);
-
   startRound(state);
 };
