@@ -3,10 +3,10 @@ import { animated, useSpring } from "react-spring";
 import { useCallback, useState } from "react";
 import { CardSuit, GameStep } from "../../types";
 import { PlayingCard } from "./PlayingCard";
+import { SuitIcon } from "./SuitIcon";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import { getTransformToPlayerValues } from "../../helpers";
 import { getCurrentRound } from "../../gameHelpers";
-import { getSuitIcon } from "../helpers";
 import "./TrumpPicker.scss";
 
 export function TrumpPicker() {
@@ -98,7 +98,7 @@ export function TrumpPicker() {
             {Object.values(CardSuit).map((suit) => (
               <Button
                 className={suit}
-                startIcon={getSuitIcon(suit)}
+                startIcon={<SuitIcon suit={suit} />}
                 disabled={trumpCardFromDeck!.suit === suit}
                 onClick={() => handleCallTrump(suit)}
                 key={suit}

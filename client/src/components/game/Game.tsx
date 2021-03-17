@@ -1,15 +1,20 @@
 import { useEffect } from "react";
 import { GameStep } from "../../types";
+import { GameSummary } from "./GameSummary";
 import { Hand } from "./Hand";
 import { PlayerContainer } from "./PlayerContainer";
 import { StartRoundDisplay } from "./StartRoundDisplay";
+import { SuitIcon } from "./SuitIcon";
 import { TrumpPicker } from "./TrumpPicker";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
+import { getCurrentRound } from "../../gameHelpers";
 import { useBot } from "../bot";
 import "./Game.scss";
+import { Paper } from "@material-ui/core";
 
 export function Game() {
   const dispatch = useAppDispatch();
+  const trump = useAppSelector((state) => getCurrentRound(state.game).trump);
   const step = useAppSelector((state) => state.game.step);
   useBot();
 
@@ -20,7 +25,18 @@ export function Game() {
   return (
     <div className="Game">
       <div className="top">
-        <PlayerContainer index={2} />
+        <div className="left">
+          <GameSummary />
+          {trump && (
+            <Paper className="trump-container">
+              <SuitIcon suit={trump} />
+            </Paper>
+          )}
+        </div>
+        <div className="center">
+          <PlayerContainer index={2} />
+        </div>
+        <div className="right" />
       </div>
       <div className="middle">
         <div className="left">

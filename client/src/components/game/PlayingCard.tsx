@@ -2,8 +2,8 @@ import classNames from "classnames";
 import { Paper } from "@material-ui/core";
 import { animated, useSpring } from "react-spring";
 import { Card } from "../../types";
-import { getSuitIcon } from "../helpers";
 import "./PlayingCard.scss";
+import { SuitIcon } from "./SuitIcon";
 
 interface Props {
   actionable?: boolean;
@@ -79,12 +79,12 @@ export function PlayingCard(props: Props) {
               <>
                 <div className="signature">
                   <div>{card.value}</div>
-                  {getSuitIcon(card.suit)}
+                  <SuitIcon suit={card.suit} />
                 </div>
                 <div className="pips"></div>
                 <div className="signature">
                   <div>{card.value}</div>
-                  {getSuitIcon(card.suit)}
+                  <SuitIcon suit={card.suit} />
                 </div>
               </>
             )}

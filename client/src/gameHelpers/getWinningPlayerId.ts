@@ -7,11 +7,11 @@ export function getWinningPlayerId(trick: Trick, trump: CardSuit): string {
   let winningCard = leadCard;
 
   trick.cards.forEach((card) => {
-    if (isTrump(winningCard, trump)) {
-      if (isTrump(card, trump) && compareCards(winningCard, card, trump) > 0) {
-        winningCard = card;
-      }
-    } else if (isTrump(card, trump) || compareCards(winningCard, card) > 0) {
+    if (
+      (winningCard.suit === card.suit &&
+        compareCards(winningCard, card, trump) > 0) ||
+      (!isTrump(winningCard, trump) && isTrump(card, trump))
+    ) {
       winningCard = card;
     }
   });

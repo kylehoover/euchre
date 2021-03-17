@@ -6,6 +6,10 @@
   &.on-side {
     flex-direction: column;
 
+    .MuiAvatar-root {
+      margin-bottom: 8px;
+    }
+
     .MuiChip-root:not(:last-child) {
       margin-bottom: 4px;
     }
@@ -13,5 +17,14 @@
 
   &:not(.on-side) > *:not(:last-child) {
     margin-right: 8px;
+  }
+
+  .MuiAvatar-root {
+    height: 30px;
+    width: 30px;
+  }
+
+  .num-tricks {
+    background-color: #14a37f;
   }
 }

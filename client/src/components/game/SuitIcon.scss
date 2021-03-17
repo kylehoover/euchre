@@ -1,0 +1,14 @@
+svg.suit-icon {
+  height: 24px;
+  width: 24px;
+
+  &.clubs,
+  &.spades {
+    fill: black;
+  }
+
+  &.diamonds,
+  &.hearts {
+    fill: red;
+  }
+}

@@ -17,20 +17,11 @@
   &.hearts {
     .signature {
       color: red;
-
-      svg {
-        fill: red;
-      }
     }
   }
 
   &.actionable:hover {
     cursor: pointer;
-  }
-
-  svg {
-    height: 24px;
-    width: 24px;
   }
 
   .card {

@@ -15,4 +15,11 @@ export function endTrick(state: GameState): void {
   log(state, `Winning player: ${winningPlayerIndex}`);
   log(state, `Winning team: ${trick.winningTeamIndex}`);
   log(state, `Step: ${state.step}`);
+
+  // TODO: move to different reducer
+  if (round.tricks.length < 5) {
+    state.activePlayerIndex = winningPlayerIndex;
+    state.step = GameStep.PlayingCards;
+    round.tricks.push({ cards: [], winningPlayerId: "", winningTeamIndex: -1 });
+  }
 }

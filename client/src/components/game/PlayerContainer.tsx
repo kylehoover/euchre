@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import { Chip, Typography } from "@material-ui/core";
+import { Avatar, Chip, Typography } from "@material-ui/core";
 import { Player } from "../../types";
 import { useAppSelector } from "../../store";
 import "./PlayerContainer.scss";
+import { getCurrentRound } from "../../gameHelpers";
 
 interface Props {
   index: number;
@@ -10,13 +11,17 @@ interface Props {
 
 export function PlayerContainer(props: Props) {
   const { index } = props;
-  const player: Player | undefined = useAppSelector(
-    (state) => state.game.players[state.game.playerOrder[index]],
-  );
-  const isActivePlayer = useAppSelector(
-    (state) => state.game.activePlayerIndex === index,
-  );
-  const isDealer = useAppSelector((state) => state.game.dealerIndex === index);
+  const game = useAppSelector((state) => state.game);
+  const { activePlayerIndex, dealerIndex, players, playerOrder } = game;
+  const player = players[playerOrder[index]];
+  const round = getCurrentRound(game);
+  const isActivePlayer = activePlayerIndex === index;
+  const isDealer = dealerIndex === index;
+
+  const numTricks = round.tricks.filter(
+    ({ winningPlayerId }) => winningPlayerId === player.id,
+  ).length;
+
   const classes = classNames("PlayerContainer", { "on-side": index % 2 === 1 });
 
   if (player === undefined) {
@@ -28,6 +33,9 @@ export function PlayerContainer(props: Props) {
       <Typography variant="subtitle1" className="name">
         {player.name}
       </Typography>
+      <Avatar className="num-tricks" variant="rounded">
+        {numTricks}
+      </Avatar>
       {isDealer && <Chip label="Dealer" color="secondary" />}
       {isActivePlayer && <Chip label="Active" color="primary" />}
     </div>

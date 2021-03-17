@@ -2,11 +2,6 @@
   align-items: center;
   display: flex;
 
-  svg {
-    height: 20px;
-    width: 20px;
-  }
-
   .actions {
     display: flex;
     flex-direction: column;
@@ -17,13 +12,6 @@
 
     button {
       width: 128px;
-    }
-  }
-
-  .diamonds,
-  .hearts {
-    svg {
-      fill: red;
     }
   }
 
