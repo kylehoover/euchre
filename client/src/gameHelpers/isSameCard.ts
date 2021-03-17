@@ -1,6 +1,5 @@
 import { Card } from "../types";
-import { compareCards } from "./compareCards";
 
 export function isSameCard(card1: Card, card2: Card): boolean {
-  return compareCards(card1, card2) === 0;
+  return card1.suit === card2.suit && card1.value === card2.value;
 }
