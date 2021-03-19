@@ -25,6 +25,6 @@ export const playCard: CaseReducer<GameState, PayloadAction<number>> = (
     state.activePlayerIndex = nextIndex(activePlayerIndex);
     log(state, `Active: ${state.activePlayerIndex}`);
   } else {
-    endTrick(state);
+    // endTrick(state);
   }
 };

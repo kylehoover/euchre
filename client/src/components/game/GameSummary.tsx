@@ -20,13 +20,15 @@ export function GameSummary() {
     <TableContainer className="GameSummary" component={Paper}>
       <Table size="small">
         <TableHead>
-          <TableCell>Team</TableCell>
-          <TableCell>Round {game.rounds.length}</TableCell>
-          <TableCell>Points</TableCell>
+          <TableRow>
+            <TableCell>Team</TableCell>
+            <TableCell>Round {game.rounds.length}</TableCell>
+            <TableCell>Points</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {teams.map((team, index) => (
-            <TableRow>
+            <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>
                 {

@@ -9,7 +9,7 @@ import {
 import { useRef } from "react";
 import { PlayingCard } from "./PlayingCard";
 import { createAnimationDeck } from "../../gameHelpers";
-import { delay, getTransformToPlayerValues } from "../../helpers";
+import { delay, getOffScreenTranslateValues } from "../../helpers";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import { useMounted } from "../hooks";
 import "./StartRoundDisplay.scss";
@@ -43,7 +43,7 @@ export function StartRoundDisplay() {
   const springs = useSprings(
     deck.length,
     deck.map((direction, i) => {
-      const [x, y] = getTransformToPlayerValues(direction, 0, 50);
+      const [x, y] = getOffScreenTranslateValues(direction, [100, 90, 140, 90]);
 
       return {
         opacity: 1,

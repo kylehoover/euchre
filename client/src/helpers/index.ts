@@ -1,4 +1,5 @@
 export { delay } from "./delay";
-export { getTransformToPlayerValues } from "./getTransformToPlayerValues";
+export { getOffScreenTranslateValues } from "./getOffScreenTranslateValues";
+export { isRound } from "./isRound";
 export { randomInt } from "./randomInt";
 export { shuffle } from "./shuffle";

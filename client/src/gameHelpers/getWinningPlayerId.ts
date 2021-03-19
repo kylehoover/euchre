@@ -1,5 +1,6 @@
 import { CardSuit, Trick } from "../types";
 import { compareCards } from "./compareCards";
+import { getSuit } from "./getSuit";
 import { isTrump } from "./isTrump";
 
 export function getWinningPlayerId(trick: Trick, trump: CardSuit): string {
@@ -8,7 +9,7 @@ export function getWinningPlayerId(trick: Trick, trump: CardSuit): string {
 
   trick.cards.forEach((card) => {
     if (
-      (winningCard.suit === card.suit &&
+      (getSuit(winningCard, trump) === getSuit(card, trump) &&
         compareCards(winningCard, card, trump) > 0) ||
       (!isTrump(winningCard, trump) && isTrump(card, trump))
     ) {

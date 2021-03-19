@@ -1,5 +1,6 @@
 import { Card, CardSuit, CardValue } from "../types";
 import { getLeftBowerSuit } from "./getLeftBowerSuit";
+import { getSuit } from "./getSuit";
 import { isLeftBower } from "./isLeftBower";
 
 const sortOrder: { [Value in CardValue]: number } = {
@@ -21,10 +22,8 @@ const trumpSortOrder: { [Value in CardValue]: number } = {
 };
 
 export function compareCards(card1: Card, card2: Card, trump?: CardSuit) {
-  const suit1 =
-    trump && isLeftBower(card1, trump) ? getLeftBowerSuit(card1) : card1.suit;
-  const suit2 =
-    trump && isLeftBower(card2, trump) ? getLeftBowerSuit(card2) : card2.suit;
+  const suit1 = getSuit(card1, trump);
+  const suit2 = getSuit(card2, trump);
 
   let comparison = suit1.localeCompare(suit2);
 
@@ -32,9 +31,10 @@ export function compareCards(card1: Card, card2: Card, trump?: CardSuit) {
     return comparison;
   }
 
-  comparison = trump
-    ? trumpSortOrder[card1.value] - trumpSortOrder[card2.value]
-    : sortOrder[card1.value] - sortOrder[card2.value];
+  comparison =
+    trump && suit1 === trump
+      ? trumpSortOrder[card1.value] - trumpSortOrder[card2.value]
+      : sortOrder[card1.value] - sortOrder[card2.value];
 
   if (
     comparison === 0 &&

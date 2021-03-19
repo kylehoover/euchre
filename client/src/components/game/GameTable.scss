@@ -1,0 +1,7 @@
+.GameTable {
+  position: relative;
+
+  > * {
+    position: absolute;
+  }
+}

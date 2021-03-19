@@ -5,7 +5,7 @@ import { CardSuit, GameStep } from "../../types";
 import { PlayingCard } from "./PlayingCard";
 import { SuitIcon } from "./SuitIcon";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
-import { getTransformToPlayerValues } from "../../helpers";
+import { getOffScreenTranslateValues } from "../../helpers";
 import { getCurrentRound } from "../../gameHelpers";
 import "./TrumpPicker.scss";
 
@@ -42,7 +42,7 @@ export function TrumpPicker() {
   });
 
   const [x, y] = didPickUp
-    ? getTransformToPlayerValues(dealerIndex, 65, 50)
+    ? getOffScreenTranslateValues(dealerIndex, [100, 170, 140, 0])
     : [0, 0];
 
   const cardSpring = useSpring({
