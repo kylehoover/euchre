@@ -5,13 +5,13 @@ export function getOffScreenTranslateValues(
   const xDelta = direction % 2 === 0 ? 0 : direction === 1 ? left : right;
   const yDelta = direction % 2 === 1 ? 0 : direction === 0 ? bottom : top;
 
-  const transformX = window.innerWidth / 2 + xDelta;
-  const transformY = window.innerHeight / 2 + yDelta;
+  const translateX = window.innerWidth / 2 + xDelta;
+  const translateY = window.innerHeight / 2 + yDelta;
 
   const x =
-    direction % 2 === 0 ? 0 : direction === 1 ? -transformX : transformX;
+    direction % 2 === 0 ? 0 : direction === 1 ? -translateX : translateX;
   const y =
-    direction % 2 === 1 ? 0 : direction === 0 ? transformY : -transformY;
+    direction % 2 === 1 ? 0 : direction === 0 ? translateY : -translateY;
 
   return [x, y];
 }

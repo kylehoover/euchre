@@ -1,10 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTransition } from "react-spring";
 import { PlayingCard } from "./PlayingCard";
-import { Card, GameStep } from "../../types";
-import { isSameCard } from "../../gameHelpers";
+import { Card, CardIndexed, GameStep } from "../../types";
+import {
+  getCurrentRound,
+  getCurrentTrick,
+  getPlayableCards,
+  isSameCard,
+} from "../../gameHelpers";
 import { gameActions, useAppDispatch, useAppSelector } from "../../store";
 import "./Hand.scss";
+
+function getHand(cards: Card[]): CardIndexed[] {
+  return cards.map((card, index) => ({ ...card, index }));
+}
 
 function getKey({ suit, value }: Card): string {
   return `${value}-${suit}`;
@@ -12,23 +21,20 @@ function getKey({ suit, value }: Card): string {
 
 export function Hand() {
   const dispatch = useAppDispatch();
-  const activePlayerIndex = useAppSelector(
-    (state) => state.game.activePlayerIndex,
-  );
-  const hand = useAppSelector(
-    (state) => state.game.players[state.game.currentUserId]?.hand ?? [],
-  );
-  const step = useAppSelector((state) => state.game.step);
-  const trumpCard = useAppSelector(
-    (state) =>
-      state.game.rounds[state.game.rounds.length - 1].trumpCardFromDeck!,
-  );
+  const game = useAppSelector((state) => state.game);
+  const { activePlayerIndex, currentUserId, players, step } = game;
+  const { trump, trumpCardFromDeck } = getCurrentRound(game);
+  const hand = getHand(players[currentUserId].hand);
+  const trick = getCurrentTrick(game);
+  const [_, playableIndices] = getPlayableCards(trick.cards, hand, trump);
 
   const [isDiscarding, setIsDiscarding] = useState(false);
 
-  const isActionable = (card: Card) =>
-    (isDiscarding && !isSameCard(card, trumpCard)) ||
-    (activePlayerIndex === 0 && step === GameStep.PlayingCards);
+  const isActionable = (card: CardIndexed) =>
+    (isDiscarding && !isSameCard(card, trumpCardFromDeck!)) ||
+    (step === GameStep.PlayingCards &&
+      activePlayerIndex === 0 &&
+      playableIndices[card.index]);
 
   const transitions = useTransition(hand, getKey, {
     from: {

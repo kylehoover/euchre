@@ -22,6 +22,10 @@ export interface CardPlayed extends Card {
   playerId: string;
 }
 
+export interface CardIndexed extends Card {
+  index: number;
+}
+
 export interface Trick {
   cards: CardPlayed[];
   winningPlayerId: string;
