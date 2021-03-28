@@ -5,7 +5,7 @@ export { deal } from "./deal";
 export { getActivePlayer } from "./getActivePlayer";
 export { getCurrentRound } from "./getCurrentRound";
 export { getCurrentTrick } from "./getCurrentTrick";
-export { getNumTricks } from "./getNumTricks";
+export { getNumTricksWonForTeam } from "./getNumTricksWonForTeam";
 export { getPlayableCards } from "./getPlayableCards";
 export { getWinningPlayerId } from "./getWinningPlayerId";
 export { isSameCard } from "./isSameCard";

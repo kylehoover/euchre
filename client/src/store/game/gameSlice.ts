@@ -13,13 +13,14 @@ import {
   playCard,
   resumePlay,
   startGame,
+  startRound,
 } from "./reducers";
 
 const initialState: GameState = {
-  activePlayerIndex: 0,
+  activePlayerIndex: -1,
   currentUserId: "",
-  currentUserIndex: 0,
-  dealerIndex: 0,
+  currentUserIndex: -1,
+  dealerIndex: -1,
   log: [`Step: ${GameStep.WaitingForPlayers}`],
   playerOrder: [],
   players: {},
@@ -46,6 +47,7 @@ const gameSlice = createSlice({
     playCard,
     resumePlay,
     startGame,
+    startRound,
   },
 });
 

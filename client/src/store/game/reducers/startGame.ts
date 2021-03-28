@@ -1,8 +1,8 @@
 import { CaseReducer } from "@reduxjs/toolkit";
 import { GameState } from "../types";
-import { createPlayer, nextIndex } from "../helpers";
-import { randomInt } from "../../../helpers";
+import { createPlayer } from "../helpers";
 import { startRound } from "./startRound";
+import { gameActions } from "../gameSlice";
 
 export const startGame: CaseReducer<GameState> = (state) => {
   let botNum = 1;
@@ -41,10 +41,5 @@ export const startGame: CaseReducer<GameState> = (state) => {
     }
   });
 
-  // const dealerIndex = randomInt(0, 3);
-  const dealerIndex = 3;
-  state.dealerIndex = dealerIndex;
-  state.activePlayerIndex = nextIndex(dealerIndex);
-
-  startRound(state);
+  startRound(state, gameActions.startRound());
 };

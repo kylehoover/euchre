@@ -1,8 +1,19 @@
+import { CaseReducer } from "@reduxjs/toolkit";
 import { GameStep } from "../../../types";
-import { log } from "../helpers";
 import { GameState } from "../types";
+import { log, nextIndex } from "../helpers";
+import { randomInt } from "../../../helpers";
 
-export function startRound(state: GameState): void {
+export const startRound: CaseReducer<GameState> = (state) => {
+  if (state.dealerIndex === -1) {
+    // const dealerIndex = randomInt(0, 3);
+    state.dealerIndex = 3;
+    state.activePlayerIndex = nextIndex(state.dealerIndex);
+  } else {
+    state.dealerIndex = nextIndex(state.dealerIndex);
+    state.activePlayerIndex = nextIndex(state.dealerIndex);
+  }
+
   state.rounds.push({
     callerId: "",
     dealerId: state.playerOrder[state.dealerIndex],
@@ -15,4 +26,4 @@ export function startRound(state: GameState): void {
   log(state, `Start round: ${state.rounds.length}`);
   log(state, `Step: ${state.step}`);
   log(state, `Dealer: ${state.dealerIndex}`);
-}
+};

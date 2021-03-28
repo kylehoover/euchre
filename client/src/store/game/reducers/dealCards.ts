@@ -1,9 +1,9 @@
 import { CaseReducer } from "@reduxjs/toolkit";
+import { GameStep } from "../../../types";
 import { GameState } from "../types";
 import { createDeck, deal, sortCards } from "../../../gameHelpers";
 import { shuffle } from "../../../helpers";
 import { log, nextIndex } from "../helpers";
-import { CardSuit, GameStep } from "../../../types";
 
 export const dealCards: CaseReducer<GameState> = (state) => {
   const deck = shuffle(createDeck());

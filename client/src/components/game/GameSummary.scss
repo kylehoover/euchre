@@ -1,4 +1,17 @@
 .GameSummary {
   margin: 8px 0 0 8px;
   max-width: 250px;
+
+  .dot {
+    background-color: #3f51b5;
+    border-radius: 50%;
+    height: 8px;
+    margin-left: 8px;
+    width: 8px;
+  }
+
+  .round-cell {
+    align-items: center;
+    display: flex;
+  }
 }

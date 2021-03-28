@@ -1,10 +1,12 @@
 import { Paper } from "@material-ui/core";
 import { useEffect } from "react";
 import { GameStep } from "../../types";
+import { GameStats } from "./GameStats";
 import { GameSummary } from "./GameSummary";
 import { GameTable } from "./GameTable";
 import { Hand } from "./Hand";
 import { PlayerContainer } from "./PlayerContainer";
+import { RoundSummary } from "./RoundSummary";
 import { StartRoundDisplay } from "./StartRoundDisplay";
 import { SuitIcon } from "./SuitIcon";
 import { TrumpPicker } from "./TrumpPicker";
@@ -54,6 +56,10 @@ export function Game() {
 
           {(step === GameStep.PlayingCards ||
             step === GameStep.EndingTrick) && <GameTable />}
+
+          {step === GameStep.EndingRound && <RoundSummary />}
+
+          {step === GameStep.EndingGame && <GameStats />}
         </div>
         <div className="right">
           <PlayerContainer index={3} />

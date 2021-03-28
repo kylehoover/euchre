@@ -9,3 +9,4 @@ export { pickUpTrump } from "./pickUpTrump";
 export { playCard } from "./playCard";
 export { resumePlay } from "./resumePlay";
 export { startGame } from "./startGame";
+export { startRound } from "./startRound";

@@ -1,13 +1,15 @@
 import { CaseReducer } from "@reduxjs/toolkit";
-import { getNumTricks } from "../../../gameHelpers";
+import { GameStep } from "../../../types";
 import { GameState } from "../types";
+import { log } from "../helpers";
+import { getWinningTeamIndex } from "../../../gameHelpers/getWinningTeamIndex";
+import { getNumWinningPoints } from "../../../gameHelpers/getNumWinningPoints";
 
 export const endRound: CaseReducer<GameState> = (state) => {
-  const { teams } = state;
+  const winningTeamIndex = getWinningTeamIndex(state);
+  state.teams[winningTeamIndex].points += getNumWinningPoints(state);
+  state.step = GameStep.EndingRound;
 
-  teams.forEach((team, index) => {
-    if (getNumTricks(state, index) >= 3) {
-      team.points++;
-    }
-  });
+  log(state, `Team ${winningTeamIndex + 1} wins round`);
+  log(state, `Step: ${state.step}`);
 };

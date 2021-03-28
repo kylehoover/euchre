@@ -63,4 +63,6 @@ export enum GameStep {
   DealerDiscarding = "DealerDiscarding",
   PlayingCards = "PlayingCards",
   EndingTrick = "EndingTrick",
+  EndingRound = "EndingRound",
+  EndingGame = "EndingGame",
 }

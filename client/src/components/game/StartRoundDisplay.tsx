@@ -60,7 +60,7 @@ export function StartRoundDisplay() {
     }),
   );
 
-  useChain([/*roundBannerRef,*/ deckRef, springsRef]);
+  useChain([roundBannerRef, deckRef, springsRef]);
 
   return (
     <div className="StartRoundDisplay">
