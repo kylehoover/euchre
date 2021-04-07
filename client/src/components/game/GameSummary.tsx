@@ -31,9 +31,11 @@ export function GameSummary() {
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>{team.points}</TableCell>
-              <TableCell className="round-cell">
-                {getNumTricksWonForTeam(round.tricks, index)}
-                {callingTeamIndex === index && <div className="dot" />}
+              <TableCell>
+                <div className="round-cell">
+                  {getNumTricksWonForTeam(round.tricks, index)}
+                  {callingTeamIndex === index && <div className="dot" />}
+                </div>
               </TableCell>
             </TableRow>
           ))}
